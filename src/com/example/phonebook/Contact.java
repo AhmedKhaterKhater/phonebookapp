@@ -6,16 +6,16 @@ import java.util.List;
 public class Contact {
 
     private String name;
-    private boolean favourite;
+    private boolean favourites;
     private List<PhoneNumber> phoneNumbers;
 
 
 
 
-    public Contact( String name, boolean favourite, List<PhoneNumber> phoneNumbers) {
+    public Contact( String name, boolean favourites, List<PhoneNumber> phoneNumbers) {
 
         this.name = name;
-        this.favourite = favourite;
+        this.favourites = favourites;
         this.phoneNumbers = phoneNumbers;
     }
 
@@ -33,11 +33,11 @@ public class Contact {
     }
 
     public boolean isFavourite() {
-        return favourite;
+        return favourites;
     }
 
-    public void setFavourite(boolean favourite) {
-        this.favourite = favourite;
+    public void setFavourite(boolean favourites) {
+        this.favourites = favourites;
     }
 
     public List<PhoneNumber> getPhoneNumbers() {

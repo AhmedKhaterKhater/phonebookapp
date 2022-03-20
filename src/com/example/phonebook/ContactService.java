@@ -7,9 +7,9 @@ import java.util.*;
 
 public class ContactService {
 
-    public TreeSet<Contact> contacts = new TreeSet<>(new NameComparator());
+    public TreeSet<Contact> contacts = new TreeSet<>(new NameComparision());
     public void saveToFile() throws IOException {
-        String rawData="";
+        String data="";
         Iterator<Contact> it = contacts.iterator();
         while (it.hasNext()){
             Contact current = it.next();
@@ -17,10 +17,10 @@ public class ContactService {
             for(int i=0; i<current.getPhoneNumbers().size();i++){
                 phoneNumbers= phoneNumbers+current.getPhoneNumbers().get(i).getPhone()+"__"+current.getPhoneNumbers().get(i).getType()+",,";
             }
-            rawData = rawData+ current.getName() +"}}"+phoneNumbers+"}}" +current.isFavourite()+"@@";
+            data =data+ current.getName() +"}}"+phoneNumbers+"}}" +current.isFavourite()+"@@";
         }
         FileWriter myWriter = new FileWriter("data.txt",false);
-        myWriter.write(rawData);
+        myWriter.write(data);
         myWriter.close();
 
 
@@ -143,14 +143,7 @@ public class ContactService {
             default:
                 type = "Mobile";
         }
-        Contact contact= addNewContact(name,phone,type);
-        System.out.println("Do you want to add extra number?");
-        System.out.println("1. Yes");
-        System.out.println("2. No");
-        String answer= scanner.nextLine();
-        if(answer.equals("1")){
-            savePhoneNumber(contact);
-        }
+        
 
     }
     public boolean checkExistence(String name,String phone) throws IOException {
@@ -170,7 +163,7 @@ public class ContactService {
         }
         return false;
     }
-    public boolean checkExistence(String phone) throws IOException {
+    public boolean checkIfExist(String phone) throws IOException {
         readFromFile();
         for(int i=0; i<contacts.size();i++){
                 for(int y=0; y<contacts.iterator().next().getPhoneNumbers().size();y++){
@@ -290,7 +283,7 @@ public class ContactService {
     }
     public void markAsFavourite() throws IOException {
         readFromFile();
-        System.out.println("Enter name of the contact you want to mark as favourite");
+        System.out.println("Enter name of the favourit contact");
         Scanner scanner = new Scanner(System.in);
         String favName= scanner.nextLine();
         Iterator<Contact> iterator = contacts.iterator();
@@ -311,7 +304,7 @@ public class ContactService {
         Iterator<Contact> iterator = contacts.iterator();
         while (iterator.hasNext()){
             Contact current =iterator.next();
-            System.out.println("********");
+           
             if(current.isFavourite()){
 
                 System.out.println("name: "+current.getName());
@@ -319,7 +312,7 @@ public class ContactService {
                     System.out.println(current.getPhoneNumbers().get(y).getType() + ": " + current.getPhoneNumbers().get(y).getPhone());
                 }
                 System.out.println("favourite: "+ current.isFavourite());
-                System.out.println("********");
+                
 
             }
         }
@@ -339,7 +332,7 @@ public class ContactService {
                     System.out.println(current.getPhoneNumbers().get(y).getType() + ": " + current.getPhoneNumbers().get(y).getPhone());
                 }
                 System.out.println("favourite: "+ current.isFavourite());
-                System.out.println("*********");
+                
             }
         }
     }
@@ -354,13 +347,12 @@ public class ContactService {
             Contact current =iterator.next();
             for (int i =0; i < current.getPhoneNumbers().size();i++){
             if(current.getPhoneNumbers().get(i).getPhone().equals(number)){
-                System.out.println("*********");
                 System.out.println("name: "+current.getName());
                 for (int y=0; y<current.getPhoneNumbers().size();y++) {
                     System.out.println(current.getPhoneNumbers().get(y).getType() + ": " + current.getPhoneNumbers().get(y).getPhone());
                 }
                 System.out.println("favourite: "+ current.isFavourite());
-                System.out.println("*********");
+               
                 break;
             }
         }
