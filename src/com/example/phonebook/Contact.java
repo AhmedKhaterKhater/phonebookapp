@@ -12,6 +12,7 @@ public class Contact {
 
 
 
+
     public Contact( String name, boolean favourites, List<PhoneNumber> phoneNumbers) {
 
         this.name = name;
